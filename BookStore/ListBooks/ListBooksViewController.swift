@@ -10,6 +10,8 @@ import UIKit
 
 class ListBooksViewController: UIViewController {
     
+    var viewModel : ListBooksViewModel!
+    
     private lazy var titleLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -28,13 +30,21 @@ class ListBooksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.fetchBooks()
         setupHeader()
         setupLabels()
         setupCollectionView()
+        setupBindable()
         view.addSubview(titleLabel)
         view.addSubview(collectionView)
         setupConstraints()
         // Do any additional setup after loading the view.
+    }
+    
+    func setupBindable() {
+        self.viewModel.updateListSections.bind { [weak self] updateListSections in
+            self?.collectionView.reloadData()
+        }
     }
     
     private func setupHeader() {
@@ -73,13 +83,18 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return viewModel.booksResponses?.items.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .red
-        return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ListBooksViewCell
+        cell?.titleBook.text = viewModel.booksResponses?.items[indexPath.row].volumeInfo.title
+        cell?.urlImage = viewModel.booksResponses?.items[indexPath.row].volumeInfo.imageLinks?.smallThumbnail ?? ""
+        cell?.publisherBook.text = viewModel.booksResponses?.items[indexPath.row].volumeInfo.publisher
+        cell?.dateBook.text = "Date:\(viewModel.booksResponses?.items[indexPath.row].volumeInfo.publishedDate ?? "")"
+        cell?.startItemCell()
+        cell?.setupForSaleBackground(typeForSale: saleabilitySale(rawValue: (viewModel.booksResponses?.items[indexPath.row].saleInfo.saleability)!) ?? .forSale)
+        return cell ?? UICollectionViewCell()
     }
 }
 

@@ -68,9 +68,9 @@ public class MainCoordinator: NSObject, UINavigationControllerDelegate {
     
     private func HomeController() {
         let vc = ListBooksViewController()
-        //let viewModel = HomeViewModel()
-        //viewModel.coordinatorDelegate = self
-        //vc.viewModel = viewModel
+        let viewModel = ListBooksViewModel()
+        viewModel.coordinatorDelegate = self
+        vc.viewModel = viewModel
         navigationController.pushViewController(vc, animated: false)
     }
     /*
@@ -88,14 +88,8 @@ public class MainCoordinator: NSObject, UINavigationControllerDelegate {
      */
 }
 
-
-/*
-extension MainCoordinator: HomeViewModelCoordinatorDelegate {
-    func didTapFlightDetail(search: ItemFlight?) {
-        FlightDetailController(search: search)
-    }
+extension MainCoordinator: ListBooksViewModelCoordinatorDelegate {
 }
-*/
 
 
 
