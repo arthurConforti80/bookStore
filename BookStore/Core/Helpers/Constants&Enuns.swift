@@ -16,3 +16,5 @@ public enum typeListBooks {
     case listBook
     case favoriteBook
 }
+
+public var urlRequestList = "https://www.googleapis.com/books/v1/volumes?q=ios&maxResults=20&startIndex="

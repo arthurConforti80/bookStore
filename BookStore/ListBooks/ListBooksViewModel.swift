@@ -24,6 +24,7 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     var updateListSections: Bindable<Bool> = Bindable(false)
     var typeList: typeListBooks = .listBook
     var booksList: [BooksReponses.Book] = []
+    var startIndexList = "0"
     
     init(listType: typeListBooks) {
         typeList = listType
@@ -39,9 +40,9 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     }
     
     func fetchListBook() {
-        let headers : HTTPHeaders = ["Content-Type": "application/json", "client": "ios"]
-        let urlRequest = "https://www.googleapis.com/books/v1/volumes?q=ios&maxResults=20&startIndex=0"
-        let request = AF.request(urlRequest, headers: headers)
+        print(startIndexList)
+        let url = "\(urlRequestList)\(startIndexList)"
+        let request = AF.request(url)
          request.responseDecodable(of: BooksReponses.self) { (response) in
            guard let books = response.value else { return }
            for item in books.items {

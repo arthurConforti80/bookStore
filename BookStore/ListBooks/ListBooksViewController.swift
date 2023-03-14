@@ -74,6 +74,16 @@ class ListBooksViewController: UIViewController {
         
     }
     
+    func loadMoreData() {
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) { // Remove the 1-second delay if you want to load the data without waiting
+            self.viewModel.startIndexList = String(self.viewModel.booksList.count + 20)
+            self.viewModel.fetchListBook()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
 }
 
 extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -100,6 +110,12 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.booksList[indexPath.row]
         viewModel.tapBookDetail(item: model)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.booksList.count - 1 {
+            loadMoreData()
+        }
     }
 }
 
