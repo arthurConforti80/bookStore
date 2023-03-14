@@ -49,12 +49,13 @@ class ListBooksViewController: UIViewController {
     
     private func setupHeader() {
         view.backgroundColor = .white
-        navigationItem.title = "BookStore"
+        navigationItem.title = "Books Store"
     }
     
     private func setupLabels() {
-        titleLabel.text = "iOS Books"
-        titleLabel.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
+        titleLabel.text = "Search: iOS Catalog"
+        titleLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .semibold)
+        titleLabel.textAlignment = .center
     }
     
     private func setupCollectionView() {
@@ -109,7 +110,7 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = viewModel.booksList[indexPath.row]
-        viewModel.tapBookDetail(item: model)
+        viewModel.tapBookDetail(item: model.id)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

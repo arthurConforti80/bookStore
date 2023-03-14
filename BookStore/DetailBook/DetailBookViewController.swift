@@ -149,11 +149,11 @@ class DetailBookViewController: UIViewController {
     }
     
     private func setupLabels() {
-        titleBook.text = viewModel.booksResponses.volumeInfo.title
+        titleBook.text = viewModel.booksResponses?.volumeInfo.title
         titleBook.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
         titleBook.numberOfLines = 0
         
-        authorsBook.text = viewModel.booksResponses.volumeInfo.authors?.joined(separator:",")
+        authorsBook.text = viewModel.booksResponses?.volumeInfo.authors?.joined(separator:",")
         authorsBook.font = UIFont.systemFont(ofSize: 10.0, weight: .regular)
         authorsBook.numberOfLines = 0
         
@@ -161,7 +161,7 @@ class DetailBookViewController: UIViewController {
         publisherTitle.font = UIFont.systemFont(ofSize: 14.0, weight: .bold)
         publisherTitle.numberOfLines = 0
         
-        publisherBook.text = viewModel.booksResponses.volumeInfo.publisher
+        publisherBook.text = viewModel.booksResponses?.volumeInfo.publisher
         publisherBook.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
         publisherBook.numberOfLines = 0
         
@@ -170,7 +170,7 @@ class DetailBookViewController: UIViewController {
         dateTitle.numberOfLines = 0
         dateTitle.textAlignment = .left
         
-        dateBook.text = viewModel.booksResponses.volumeInfo.publishedDate
+        dateBook.text = viewModel.booksResponses?.volumeInfo.publishedDate
         dateBook.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
         dateBook.numberOfLines = 0
         
@@ -178,7 +178,7 @@ class DetailBookViewController: UIViewController {
         priceTitle.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
         priceTitle.numberOfLines = 0
         
-        let value = String(format: "%.2f", viewModel.booksResponses.saleInfo.listPrice?.amount ?? 0.0)
+        let value = String(format: "%.2f", viewModel.booksResponses?.saleInfo.listPrice?.amount ?? 0.0)
         priceBook.text = "\(value)€"
         priceBook.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
         priceBook.numberOfLines = 0
@@ -187,7 +187,7 @@ class DetailBookViewController: UIViewController {
         ratingTitle.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
         ratingTitle.numberOfLines = 0
         
-        let rating = String(format: "%.2f", viewModel.booksResponses.volumeInfo.averageRating ?? 0.0)
+        let rating = String(format: "%.2f", viewModel.booksResponses?.volumeInfo.averageRating ?? 0.0)
         ratingBook.text = rating
         ratingBook.font = UIFont.systemFont(ofSize: 16.0, weight: .regular)
         ratingBook.numberOfLines = 0
@@ -195,12 +195,12 @@ class DetailBookViewController: UIViewController {
         reviewTitle.text = "Review"
         reviewTitle.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
         
-        descriptionBook.text = viewModel.booksResponses.volumeInfo.description
+        descriptionBook.text = viewModel.booksResponses?.volumeInfo.description
         descriptionBook.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
         descriptionBook.numberOfLines = 0
         descriptionBook.sizeToFit()
         
-        if viewModel.booksResponses.saleInfo.saleability == saleabilitySale.forSale.rawValue {
+        if viewModel.booksResponses?.saleInfo.saleability == saleabilitySale.forSale.rawValue {
             buyBook.backgroundColor = .yellow
             buyBook.isEnabled = true
             buyBook.setTitle("Buy Now!", for: .normal)
@@ -217,7 +217,7 @@ class DetailBookViewController: UIViewController {
     
     private func setupImageViews() {
         
-        guard let url = URL(string: viewModel.booksResponses.volumeInfo.imageLinks?.smallThumbnail ?? "") else {
+        guard let url = URL(string: viewModel.booksResponses?.volumeInfo.imageLinks?.smallThumbnail ?? "") else {
            return
        }
         imageBook.load(url: url)
@@ -293,13 +293,13 @@ class DetailBookViewController: UIViewController {
     }
     
     @objc private func actionBuyButton(_ sender: UIButton) {
-        if let url = URL(string: viewModel.booksResponses.saleInfo.buyLink ?? ""), !url.absoluteString.isEmpty {
+        if let url = URL(string: viewModel.booksResponses?.saleInfo.buyLink ?? ""), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     
     @objc private func actionFavorites(_ sender: UIButton) {
-        imageBookmarks.tintColor = viewModel.tapFavorite(value: !(viewModel.booksResponses.favorite ?? false))
+        imageBookmarks.tintColor = viewModel.tapFavorite(value: !(viewModel.booksResponses?.favorite ?? false))
     }
     
     @objc private func actionGoFavorite(_ sender: UIButton) {

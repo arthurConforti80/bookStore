@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol ListBooksViewModelCoordinatorDelegate: AnyObject {
-    func goBookDetail(item: BooksReponses.Book)
+    func goBookDetail(books: [BooksReponses.Book], item: String)
 }
 
 protocol ListBooksViewModelProtocol {
@@ -56,7 +56,7 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
         self.updateListSections.value = true
     }
     
-    func tapBookDetail(item: BooksReponses.Book) {
-        coordinatorDelegate?.goBookDetail(item: item)
+    func tapBookDetail(item: String) {
+        coordinatorDelegate?.goBookDetail(books: booksList, item: item)
     }
 }

@@ -74,10 +74,9 @@ public class MainCoordinator: NSObject, UINavigationControllerDelegate {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    private func BookDetailController(book: BooksReponses.Book) {
-
+    private func BookDetailController(book: [BooksReponses.Book], selectedItem: String) {
         let detail = DetailBookViewController()
-        let viewModel = DetailBooksViewModel.init(item: book)
+        let viewModel = DetailBooksViewModel.init(item: book, selectedItem: selectedItem)
         viewModel.coordinatorDelegate = self
         detail.viewModel = viewModel
         navigationController.pushViewController(detail, animated: false)
@@ -96,8 +95,8 @@ public class MainCoordinator: NSObject, UINavigationControllerDelegate {
 }
 
 extension MainCoordinator: ListBooksViewModelCoordinatorDelegate {
-    func goBookDetail(item: BooksReponses.Book) {
-        BookDetailController(book: item)
+    func goBookDetail(books: [BooksReponses.Book], item: String) {
+        BookDetailController(book: books, selectedItem: item)
     }
 }
 
