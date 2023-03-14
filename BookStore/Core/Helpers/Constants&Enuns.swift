@@ -92,6 +92,8 @@ let paddingTopIconBook: CGFloat = 20
 let paddingLeadingIconBook: CGFloat = 30
 let widthIconBook: CGFloat = 50
 let heightIconBook: CGFloat = 50
+let decimalCut = "%.2f"
+let symbolEuro = "€"
 
 // Common
 let paddingEmpty: CGFloat  = 0

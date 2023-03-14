@@ -89,7 +89,7 @@ class DetailBookViewController: UIViewController {
     private lazy var buyBook: UIButton = {
         let view = UIButton(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle("Not Available!", for: .normal)
+        view.setTitle(NotForSaleText, for: .normal)
         view.setTitleColor(UIColor.black, for: .normal)
         view.layer.cornerRadius = 4
         view.backgroundColor = .red
@@ -178,8 +178,8 @@ class DetailBookViewController: UIViewController {
         priceTitle.font = UIFont.systemFont(ofSize: sizePriceTitle, weight: .bold)
         priceTitle.numberOfLines = 0
         
-        let value = String(format: "%.2f", viewModel.booksResponses?.saleInfo.listPrice?.amount ?? 0.0)
-        priceBook.text = "\(value)€"
+        let value = String(format: decimalCut, viewModel.booksResponses?.saleInfo.listPrice?.amount ?? .zero)
+        priceBook.text = "\(value)\(symbolEuro)"
         priceBook.font = UIFont.systemFont(ofSize: sizePriceData, weight: .bold)
         priceBook.numberOfLines = numberLines
         
@@ -187,7 +187,7 @@ class DetailBookViewController: UIViewController {
         ratingTitle.font = UIFont.systemFont(ofSize: sizeRatingTitle, weight: .bold)
         ratingTitle.numberOfLines = numberLines
         
-        let rating = String(format: "%.2f", viewModel.booksResponses?.volumeInfo.averageRating ?? 0.0)
+        let rating = String(format: decimalCut, viewModel.booksResponses?.volumeInfo.averageRating ?? .zero)
         ratingBook.text = rating
         ratingBook.font = UIFont.systemFont(ofSize: sizeRatingData, weight: .regular)
         ratingBook.numberOfLines = numberLines
@@ -226,6 +226,21 @@ class DetailBookViewController: UIViewController {
     private func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
+    
+    @objc private func actionBuyButton(_ sender: UIButton) {
+        if let url = URL(string: viewModel.booksResponses?.saleInfo.buyLink ?? ""), !url.absoluteString.isEmpty {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @objc private func actionFavorites(_ sender: UIButton) {
+        imageBookmarks.tintColor = viewModel.tapFavorite(value: !(viewModel.booksResponses?.favorite ?? false))
+    }
+    
+    @objc private func actionGoFavorite(_ sender: UIButton) {
+        viewModel.tapListFavorite()
+    }
+    
     
     private func setupConstraints() {
         imageBook.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: paddingTopImage).isActive = true
@@ -292,19 +307,5 @@ class DetailBookViewController: UIViewController {
         descriptionBook.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: paddingEmpty).isActive = true
         descriptionBook.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, constant: paddingEmpty).isActive = true
         
-    }
-    
-    @objc private func actionBuyButton(_ sender: UIButton) {
-        if let url = URL(string: viewModel.booksResponses?.saleInfo.buyLink ?? ""), !url.absoluteString.isEmpty {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-    
-    @objc private func actionFavorites(_ sender: UIButton) {
-        imageBookmarks.tintColor = viewModel.tapFavorite(value: !(viewModel.booksResponses?.favorite ?? false))
-    }
-    
-    @objc private func actionGoFavorite(_ sender: UIButton) {
-        viewModel.tapListFavorite()
     }
 }
