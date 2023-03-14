@@ -96,6 +96,11 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
         cell?.setupForSaleBackground(typeForSale: saleabilitySale(rawValue: (viewModel.booksResponses?.items[indexPath.row].saleInfo.saleability)!) ?? .forSale)
         return cell ?? UICollectionViewCell()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let model = viewModel.booksResponses?.items[indexPath.row] else { return }
+        viewModel.tapBookDetail(item: model)
+    }
 }
 
 

@@ -73,23 +73,26 @@ public class MainCoordinator: NSObject, UINavigationControllerDelegate {
         vc.viewModel = viewModel
         navigationController.pushViewController(vc, animated: false)
     }
-    /*
-    private func FlightDetailController(search: ItemFlight?) {
-      
-        /
-        let detail = FlightDetailViewController()
-        let viewModel = FlightDetailViewModel()
-        viewModel.itemFlight = search
+    
+    private func BookDetailController(book: BooksReponses.Book) {
+
+        let detail = DetailBookViewController()
+        let viewModel = DetailBooksViewModel.init(item: book)
         viewModel.coordinatorDelegate = self
         detail.viewModel = viewModel
         navigationController.pushViewController(detail, animated: false)
        
     }
-     */
+  
 }
 
 extension MainCoordinator: ListBooksViewModelCoordinatorDelegate {
+    func goBookDetail(item: BooksReponses.Book) {
+        BookDetailController(book: item)
+    }
 }
+
+extension MainCoordinator: DetailBooksViewModelCoordinatorDelegate {}
 
 
 
