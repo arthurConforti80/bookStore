@@ -11,3 +11,8 @@ public enum saleabilitySale: String {
     case forSale = "FOR_SALE"
     case notForSale = "NOT_FOR_SALE"
 }
+
+public enum typeListBooks {
+    case listBook
+    case favoriteBook
+}

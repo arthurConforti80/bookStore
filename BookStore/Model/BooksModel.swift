@@ -12,6 +12,7 @@ struct BooksReponses: Decodable {
     
     struct Book: Decodable, Identifiable {
         var id: String
+        var favorite: Bool? = false
         var volumeInfo: VolumeInfo
         var saleInfo: SaleInfo
         
@@ -21,6 +22,7 @@ struct BooksReponses: Decodable {
             var publisher: String?
             var publishedDate: String?
             var description: String?
+            var averageRating: Double?
             var imageLinks: ImageLinks?
             
             struct ImageLinks: Decodable {

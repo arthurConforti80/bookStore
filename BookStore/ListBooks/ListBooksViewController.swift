@@ -30,7 +30,7 @@ class ListBooksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchBooks()
+        viewModel.getBooks()
         setupHeader()
         setupLabels()
         setupCollectionView()
@@ -83,22 +83,22 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.booksResponses?.items.count ?? 0
+        return viewModel.booksList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ListBooksViewCell
-        cell?.titleBook.text = viewModel.booksResponses?.items[indexPath.row].volumeInfo.title
-        cell?.urlImage = viewModel.booksResponses?.items[indexPath.row].volumeInfo.imageLinks?.smallThumbnail ?? ""
-        cell?.publisherBook.text = viewModel.booksResponses?.items[indexPath.row].volumeInfo.publisher
-        cell?.dateBook.text = "Date:\(viewModel.booksResponses?.items[indexPath.row].volumeInfo.publishedDate ?? "")"
+        cell?.titleBook.text = viewModel.booksList[indexPath.row].volumeInfo.title
+        cell?.urlImage = viewModel.booksList[indexPath.row].volumeInfo.imageLinks?.smallThumbnail ?? ""
+        cell?.publisherBook.text = viewModel.booksList[indexPath.row].volumeInfo.publisher
+        cell?.dateBook.text = "Date:\(viewModel.booksList[indexPath.row].volumeInfo.publishedDate ?? "")"
         cell?.startItemCell()
-        cell?.setupForSaleBackground(typeForSale: saleabilitySale(rawValue: (viewModel.booksResponses?.items[indexPath.row].saleInfo.saleability)!) ?? .forSale)
+        cell?.setupForSaleBackground(typeForSale: saleabilitySale(rawValue: (viewModel.booksList[indexPath.row].saleInfo.saleability)!) ?? .forSale)
         return cell ?? UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let model = viewModel.booksResponses?.items[indexPath.row] else { return }
+        let model = viewModel.booksList[indexPath.row]
         viewModel.tapBookDetail(item: model)
     }
 }
