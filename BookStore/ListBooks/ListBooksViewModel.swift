@@ -16,7 +16,7 @@ protocol ListBooksViewModelProtocol {
     var coordinatorDelegate : ListBooksViewModelCoordinatorDelegate?{get set}
     var updateListSections: Bindable<Bool> { get set }
     var typeList: typeListBooks { get set }
-    var booksList: [BooksReponses.Book] { get set }
+    var favoritesBooks: [BooksReponses.Book] { get set }
 }
 
 class ListBooksViewModel: ListBooksViewModelProtocol {
@@ -24,20 +24,21 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     var updateListSections: Bindable<Bool> = Bindable(false)
     var typeList: typeListBooks = .listBook
     var booksList: [BooksReponses.Book] = []
+    var favoritesBooks: [BooksReponses.Book] = []
     var startIndexList = "0"
-    var countFavoriteList: Int = 0
+    var countFavoriteList: Int = .zero
+    
     
     init(listType: typeListBooks) {
         typeList = listType
     }
     
     func getBooks() {
-        
         switch typeList {
         case .listBook:
             fetchListBook()
         case .favoriteBook:
-            updateListBindable()
+            fetchFavoriteList()
         }
     }
     
@@ -54,11 +55,12 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     }
     
     func fetchFavoriteList() {
-        for i in booksList {
-            if i.favorite == true {
-                countFavoriteList = countFavoriteList + 1
+        for item in favoritesBooks {
+            if item.favorite == true {
+                self.booksList.append(item)
             }
         }
+        self.updateListBindable()
     }
     
     func updateListBindable() {

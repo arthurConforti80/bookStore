@@ -10,6 +10,7 @@ import UIKit
 
 protocol DetailBooksViewModelCoordinatorDelegate: AnyObject {
     func goBooksFavorites(itens: [BooksReponses.Book])
+    func goHome()
 }
 
 protocol DetailBooksViewModelProtocol {
@@ -61,5 +62,9 @@ class DetailBooksViewModel: DetailBooksViewModelProtocol {
     
     func tapListFavorite() {
        coordinatorDelegate?.goBooksFavorites(itens: booksList)
+    }
+    
+    func tapHome() {
+       coordinatorDelegate?.goHome()
     }
 }

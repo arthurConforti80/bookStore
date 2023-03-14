@@ -39,7 +39,7 @@ class ListBooksViewController: UIViewController {
         view.addSubview(collectionView)
         setupConstraints()
     }
-
+    
     func setupBindable() {
         self.viewModel.updateListSections.bind { [weak self] updateListSections in
             self?.collectionView.reloadData()
@@ -78,7 +78,9 @@ class ListBooksViewController: UIViewController {
         DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) { // Remove the 1-second delay if you want to load the data without waiting
             self.viewModel.startIndexList = String(self.viewModel.booksList.count + numberStartIndex)
             DispatchQueue.main.async {
-                self.viewModel.getBooks()
+                if self.viewModel.typeList == .listBook {
+                    self.viewModel.fetchListBook()
+                }
             }
         }
     }
