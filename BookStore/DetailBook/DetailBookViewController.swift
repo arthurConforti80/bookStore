@@ -124,6 +124,7 @@ class DetailBookViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "BookStore"
         navigationItem.backBarButtonItem?.title = "Back"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(actionBuyButton))
     }
     
     private func setupLabels() {
