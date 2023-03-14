@@ -25,6 +25,7 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     var typeList: typeListBooks = .listBook
     var booksList: [BooksReponses.Book] = []
     var startIndexList = "0"
+    var countFavoriteList: Int = 0
     
     init(listType: typeListBooks) {
         typeList = listType
@@ -40,7 +41,6 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     }
     
     func fetchListBook() {
-        print(startIndexList)
         let url = "\(urlRequestList)\(startIndexList)"
         let request = AF.request(url)
          request.responseDecodable(of: BooksReponses.self) { (response) in
@@ -50,6 +50,14 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
            }
              self.updateListBindable()
          }
+    }
+    
+    func fetchFavoriteList() {
+        for i in booksList {
+            if i.favorite == true {
+                countFavoriteList = countFavoriteList + 1
+            }
+        }
     }
     
     func updateListBindable() {

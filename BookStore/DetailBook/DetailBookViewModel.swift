@@ -56,13 +56,6 @@ class DetailBooksViewModel: DetailBooksViewModelProtocol {
     }
     
     func tapListFavorite() {
-       
-        var favoriteList: [BooksReponses.Book] = []
-        for item in booksList {
-            if item.favorite == true {
-                favoriteList.append(item)
-            }
-        }
-       coordinatorDelegate?.goBooksFavorites(itens: favoriteList)
+       coordinatorDelegate?.goBooksFavorites(itens: booksList)
     }
 }

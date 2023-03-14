@@ -60,30 +60,26 @@ class ListBooksViewCell: UICollectionViewCell {
     
     private func setupUICell() {
         self.layer.borderColor = UIColor.systemGray5.cgColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 4
+        self.layer.borderWidth = borderCell
+        self.layer.cornerRadius = cornerRadiusCell
     }
     
     private func setupLabel() {
-        titleBook.font = UIFont.systemFont(ofSize: 13.0, weight: .bold)
+        titleBook.font = UIFont.systemFont(ofSize: sizeTitleFont, weight: .bold)
         titleBook.textAlignment = .center
-        titleBook.numberOfLines = 2
+        titleBook.numberOfLines = numberLinesTitle
         
-        publisherBook.font = UIFont.systemFont(ofSize: 11.0, weight: .regular)
+        publisherBook.font = UIFont.systemFont(ofSize: sizePublisherFont, weight: .regular)
         publisherBook.textAlignment = .center
-        publisherBook.numberOfLines = 0
+        publisherBook.numberOfLines = numberLines
         
-        publisherBook.font = UIFont.systemFont(ofSize: 12.0, weight: .regular)
-        publisherBook.textAlignment = .center
-        publisherBook.numberOfLines = 0
-        
-        dateBook.font = UIFont.systemFont(ofSize: 11.0, weight: .bold)
+        dateBook.font = UIFont.systemFont(ofSize: sizeDateBookFont, weight: .bold)
         dateBook.textAlignment = .center
-        dateBook.numberOfLines = 0
+        dateBook.numberOfLines = numberLines
         
-        forSaleLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .bold)
+        forSaleLabel.font = UIFont.systemFont(ofSize: sizeForSaleFont, weight: .bold)
         forSaleLabel.textAlignment = .center
-        forSaleLabel.numberOfLines = 0
+        forSaleLabel.numberOfLines = numberLines
     }
     
     private func setupImagemView() {
@@ -94,26 +90,26 @@ class ListBooksViewCell: UICollectionViewCell {
     }
     
     private func setupConstraints() {
-        imageBook.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-        imageBook.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
-        imageBook.widthAnchor.constraint(equalToConstant: self.contentView.frame.width/2.5).isActive = true
-        imageBook.heightAnchor.constraint(equalToConstant: self.contentView.frame.height/2).isActive = true
+        imageBook.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: paddingTopImage).isActive = true
+        imageBook.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor, constant: paddingEmpty).isActive = true
+        imageBook.widthAnchor.constraint(equalToConstant: self.contentView.frame.width/widthImage).isActive = true
+        imageBook.heightAnchor.constraint(equalToConstant: self.contentView.frame.height/heightImage).isActive = true
         
-        titleBook.topAnchor.constraint(equalTo: imageBook.bottomAnchor, constant: 15).isActive = true
-        titleBook.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        titleBook.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        titleBook.topAnchor.constraint(equalTo: imageBook.bottomAnchor, constant: paddingTopCell).isActive = true
+        titleBook.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailingCell).isActive = true
+        titleBook.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeadingCell).isActive = true
         
-        publisherBook.topAnchor.constraint(equalTo: titleBook.bottomAnchor, constant: 10).isActive = true
-        publisherBook.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        publisherBook.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        publisherBook.topAnchor.constraint(equalTo: titleBook.bottomAnchor, constant: paddingTopCell).isActive = true
+        publisherBook.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailingCell).isActive = true
+        publisherBook.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeadingCell).isActive = true
         
-        dateBook.topAnchor.constraint(equalTo: publisherBook.bottomAnchor, constant: 10).isActive = true
-        dateBook.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        dateBook.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        dateBook.topAnchor.constraint(equalTo: publisherBook.bottomAnchor, constant: paddingTopCell).isActive = true
+        dateBook.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailingCell).isActive = true
+        dateBook.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeadingCell).isActive = true
         
-        forSaleLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-        forSaleLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        forSaleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        forSaleLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: paddingBottonCell).isActive = true
+        forSaleLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailingCell).isActive = true
+        forSaleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeadingCell).isActive = true
     }
     
     
@@ -121,13 +117,13 @@ class ListBooksViewCell: UICollectionViewCell {
         switch typeForSale {
         case .forSale:
             forSaleLabel.backgroundColor = .green
-            forSaleLabel.text = "Avaliable"
+            forSaleLabel.text = forSaleText
         case .notForSale:
             forSaleLabel.backgroundColor = .red
-            forSaleLabel.text = "Not Avaliable"
+            forSaleLabel.text = NotForSaleText
         }
         
-        forSaleLabel.layer.borderWidth = 1
-        forSaleLabel.layer.cornerRadius = 4
+        forSaleLabel.layer.borderWidth = borderCell
+        forSaleLabel.layer.cornerRadius = cornerRadiusCell
     }
 }

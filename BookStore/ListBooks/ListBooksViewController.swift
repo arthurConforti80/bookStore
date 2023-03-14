@@ -23,7 +23,7 @@ class ListBooksViewController: UIViewController {
         layout.scrollDirection = .vertical
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(ListBooksViewCell.self, forCellWithReuseIdentifier: "cell")
+        view.register(ListBooksViewCell.self, forCellWithReuseIdentifier: nameCellList)
         return view
     }()
     
@@ -38,9 +38,8 @@ class ListBooksViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(collectionView)
         setupConstraints()
-        // Do any additional setup after loading the view.
     }
-    
+
     func setupBindable() {
         self.viewModel.updateListSections.bind { [weak self] updateListSections in
             self?.collectionView.reloadData()
@@ -49,12 +48,12 @@ class ListBooksViewController: UIViewController {
     
     private func setupHeader() {
         view.backgroundColor = .white
-        navigationItem.title = "Books Store"
+        navigationItem.title = nameAPP
     }
     
     private func setupLabels() {
-        titleLabel.text = "Search: iOS Catalog"
-        titleLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .semibold)
+        titleLabel.text = subtitleApp
+        titleLabel.font = UIFont.systemFont(ofSize: sizeTitleLabel, weight: .semibold)
         titleLabel.textAlignment = .center
     }
     
@@ -64,23 +63,22 @@ class ListBooksViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: paddingTop).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailing).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeading).isActive = true
         
-        collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 10).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: paddingTop).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailing).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeading).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: paddingEmpty).isActive = true
         
     }
     
     func loadMoreData() {
         DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) { // Remove the 1-second delay if you want to load the data without waiting
-            self.viewModel.startIndexList = String(self.viewModel.booksList.count + 20)
-            self.viewModel.fetchListBook()
+            self.viewModel.startIndexList = String(self.viewModel.booksList.count + numberStartIndex)
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.viewModel.getBooks()
             }
         }
     }
@@ -90,7 +88,7 @@ class ListBooksViewController: UIViewController {
 extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width/2.1, height: collectionView.frame.height/2)
+        return CGSize(width: collectionView.frame.width/widthCellCollectionView, height: collectionView.frame.height/heightCellCollectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -98,11 +96,11 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ListBooksViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nameCellList, for: indexPath) as? ListBooksViewCell
         cell?.titleBook.text = viewModel.booksList[indexPath.row].volumeInfo.title
         cell?.urlImage = viewModel.booksList[indexPath.row].volumeInfo.imageLinks?.smallThumbnail ?? ""
         cell?.publisherBook.text = viewModel.booksList[indexPath.row].volumeInfo.publisher
-        cell?.dateBook.text = "Date:\(viewModel.booksList[indexPath.row].volumeInfo.publishedDate ?? "")"
+        cell?.dateBook.text = "\(labelDate):\(viewModel.booksList[indexPath.row].volumeInfo.publishedDate ?? "")"
         cell?.startItemCell()
         cell?.setupForSaleBackground(typeForSale: saleabilitySale(rawValue: (viewModel.booksList[indexPath.row].saleInfo.saleability)!) ?? .forSale)
         return cell ?? UICollectionViewCell()
@@ -114,7 +112,7 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.booksList.count - 1 {
+        if indexPath.row == viewModel.booksList.count - lessRow {
             loadMoreData()
         }
     }
