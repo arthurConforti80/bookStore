@@ -15,7 +15,7 @@ class DetailBookViewController: UIViewController {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 4
+        imageView.layer.cornerRadius = cornerRadiusCell
         return imageView
     }()
     
@@ -168,7 +168,7 @@ class DetailBookViewController: UIViewController {
         dateTitle.text = nameDateTitle
         dateTitle.font = UIFont.systemFont(ofSize: sizeDateTitle, weight: .bold)
         dateTitle.numberOfLines = numberLines
-        dateTitle.textAlignment = .left
+        //dateTitle.textAlignment = .left
         
         dateBook.text = viewModel.booksResponses?.volumeInfo.publishedDate
         dateBook.font = UIFont.systemFont(ofSize: sizeDateData, weight: .regular)
@@ -250,11 +250,11 @@ class DetailBookViewController: UIViewController {
         publisherBook.leadingAnchor.constraint(equalTo: imageBook.trailingAnchor, constant: paddingLeading).isActive = true
         
         dateTitle.topAnchor.constraint(equalTo: self.authorsBook.bottomAnchor, constant: paddingTopLabels).isActive = true
-        dateTitle.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailing).isActive = true
+        dateTitle.leadingAnchor.constraint(equalTo: self.publisherTitle.trailingAnchor, constant: paddingDateTitle).isActive = true
         dateTitle.widthAnchor.constraint(equalToConstant: widthDateLabel).isActive = true
         
         dateBook.topAnchor.constraint(equalTo: self.dateTitle.bottomAnchor, constant: paddingEmpty).isActive = true
-        dateBook.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailing).isActive = true
+        dateBook.leadingAnchor.constraint(equalTo: self.publisherBook.trailingAnchor, constant: paddingLeadingDate).isActive = true
         
         reviewTitle.topAnchor.constraint(equalTo: self.imageBook.bottomAnchor, constant: paddingTopReview).isActive = true
         reviewTitle.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeading).isActive = true
@@ -272,10 +272,10 @@ class DetailBookViewController: UIViewController {
         ratingBook.topAnchor.constraint(equalTo: self.ratingTitle.bottomAnchor, constant: paddingEmpty).isActive = true
         ratingBook.leadingAnchor.constraint(equalTo: priceBook.trailingAnchor, constant: paddingLeadingRating).isActive = true
         
-        imageBookmarks.topAnchor.constraint(equalTo: self.dateBook.topAnchor, constant: paddingTopLabels).isActive = true
-        imageBookmarks.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: paddingTrailing).isActive = true
-        imageBookmarks.widthAnchor.constraint(equalToConstant: widthDateLabel).isActive = true
-        imageBookmarks.heightAnchor.constraint(equalToConstant: widthDateLabel).isActive = true
+        imageBookmarks.topAnchor.constraint(equalTo: self.dateBook.topAnchor, constant: paddingTopIconBook).isActive = true
+        imageBookmarks.leadingAnchor.constraint(equalTo: self.ratingBook.trailingAnchor, constant: paddingLeadingIconBook).isActive = true
+        imageBookmarks.widthAnchor.constraint(equalToConstant: widthIconBook).isActive = true
+        imageBookmarks.heightAnchor.constraint(equalToConstant: heightIconBook).isActive = true
         
         buyBook.topAnchor.constraint(equalTo: self.priceBook.bottomAnchor, constant: paddingTopLabels).isActive = true
         buyBook.leadingAnchor.constraint(equalTo: imageBook.safeAreaLayoutGuide.trailingAnchor, constant: paddingLeading).isActive = true
