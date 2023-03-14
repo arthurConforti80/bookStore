@@ -32,6 +32,7 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     }
     
     func getBooks() {
+        
         switch typeList {
         case .listBook:
             fetchListBook()

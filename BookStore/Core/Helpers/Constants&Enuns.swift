@@ -17,6 +17,11 @@ public enum typeListBooks {
     case favoriteBook
 }
 
+public enum typeScreen {
+    case iphone
+    case ipad
+}
+
 public var urlRequestList = "https://www.googleapis.com/books/v1/volumes?q=ios&maxResults=20&startIndex="
 
 // ListBooksViewController
@@ -72,7 +77,8 @@ let nameRatingTitle = "Rating: "
 let nameReviewTitle = "Review: "
 let nameTitleBuyButton = "Buy Now!"
 let nameIconBookmarks = "heart.fill"
-let widthImageDetail: CGFloat = 2.5
+let widthImageIphoneDetail: CGFloat = 2.5
+let widthImageIpadDetail: CGFloat = 5
 let heightImageDetail: CGFloat = 168
 let paddingTopLabels: CGFloat = 10
 let widthDateLabel: CGFloat = 70
@@ -86,4 +92,5 @@ let paddingEmpty: CGFloat  = 0
 let paddingTop: CGFloat  = 10
 let paddingTrailing: CGFloat  = -10
 let paddingLeading: CGFloat  = 10
+let minScreenIpad: CGFloat = 600
 

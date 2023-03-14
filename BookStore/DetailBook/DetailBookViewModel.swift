@@ -26,11 +26,15 @@ class DetailBooksViewModel: DetailBooksViewModelProtocol {
     var booksResponses: BooksReponses.Book?
     var booksList: [BooksReponses.Book] = []
     var itemSelected: String = ""
+    var sizeScreen: typeScreen = .iphone
 
     init(item: [BooksReponses.Book], selectedItem: String) {
         self.booksList = item
         self.itemSelected = selectedItem
         self.getSelectedBook()
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        sizeScreen = screenWidth >= minScreenIpad ? .ipad : .iphone
     }
     
     func getSelectedBook() {

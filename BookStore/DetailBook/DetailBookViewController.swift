@@ -230,7 +230,9 @@ class DetailBookViewController: UIViewController {
     private func setupConstraints() {
         imageBook.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: paddingTopImage).isActive = true
         imageBook.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: paddingLeading).isActive = true
-        imageBook.widthAnchor.constraint(equalToConstant: self.view.frame.width / widthImageDetail).isActive = true
+        
+        let sizeWidth = viewModel.sizeScreen == .iphone ? widthImageIphoneDetail : widthImageIpadDetail
+        imageBook.widthAnchor.constraint(equalToConstant: self.view.bounds.width / sizeWidth).isActive = true
         imageBook.heightAnchor.constraint(equalToConstant: heightImageDetail).isActive = true
         
         titleBook.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: paddingTopLabels).isActive = true
