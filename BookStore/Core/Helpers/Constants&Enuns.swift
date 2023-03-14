@@ -83,9 +83,15 @@ let heightImageDetail: CGFloat = 168
 let paddingTopLabels: CGFloat = 10
 let widthDateLabel: CGFloat = 70
 let paddingTopReview: CGFloat = 50
+let paddingLeadingDate: CGFloat = 20
 let paddingLeadingRating: CGFloat = 20
 let paddingTopScrollView: CGFloat = 20
 let heightScrollViewMultiplier: CGFloat = 0.5
+let paddingDateTitle: CGFloat = 52
+let paddingTopIconBook: CGFloat = 20
+let paddingLeadingIconBook: CGFloat = 30
+let widthIconBook: CGFloat = 50
+let heightIconBook: CGFloat = 50
 
 // Common
 let paddingEmpty: CGFloat  = 0
