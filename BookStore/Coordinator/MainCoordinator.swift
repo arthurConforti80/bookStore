@@ -84,6 +84,15 @@ public class MainCoordinator: NSObject, UINavigationControllerDelegate {
     }
     
     private func FavoriteController(list: [BooksReponses.Book]) {
+        let vc = FavoriteBooksViewController()
+        let viewModel = FavoriteBooksViewModel()
+        viewModel.coordinatorDelegate = self
+        viewModel.favoritesBooks = list
+        vc.viewModel = viewModel
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    private func ListViewController(list: [BooksReponses.Book]) {
         let vc = ListBooksViewController()
         let viewModel = ListBooksViewModel.init(listType: .favoriteBook)
         viewModel.coordinatorDelegate = self
@@ -98,6 +107,10 @@ extension MainCoordinator: ListBooksViewModelCoordinatorDelegate {
     func goBookDetail(books: [BooksReponses.Book], item: String) {
         BookDetailController(book: books, selectedItem: item)
     }
+    
+    func goBooksFavoritesList(itens: [BooksReponses.Book]) {
+        FavoriteController(list: itens)
+    }
 }
 
 extension MainCoordinator: DetailBooksViewModelCoordinatorDelegate {
@@ -107,6 +120,12 @@ extension MainCoordinator: DetailBooksViewModelCoordinatorDelegate {
     
     func goBooksFavorites(itens: [BooksReponses.Book]) {
         FavoriteController(list: itens)
+    }
+}
+
+extension MainCoordinator: FavoriteBooksViewModelCoordinatorDelegate {
+    func goHome(itens: [BooksReponses.Book]) {
+        ListViewController(list: itens)
     }
 }
 

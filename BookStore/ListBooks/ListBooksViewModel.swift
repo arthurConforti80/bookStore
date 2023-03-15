@@ -10,6 +10,7 @@ import Alamofire
 
 protocol ListBooksViewModelCoordinatorDelegate: AnyObject {
     func goBookDetail(books: [BooksReponses.Book], item: String)
+    func goBooksFavoritesList(itens: [BooksReponses.Book])
 }
 
 protocol ListBooksViewModelProtocol {
@@ -55,10 +56,8 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     }
     
     func fetchFavoriteList() {
-        for item in favoritesBooks {
-            if item.favorite == true {
-                self.booksList.append(item)
-            }
+        if !favoritesBooks.isEmpty {
+            self.booksList = favoritesBooks
         }
         self.updateListBindable()
     }
@@ -66,6 +65,11 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
     func updateListBindable() {
         self.updateListSections.value = true
     }
+    
+    func tapFavorite() {
+        coordinatorDelegate?.goBooksFavoritesList(itens: favoritesBooks)
+    }
+
     
     func tapBookDetail(item: String) {
         coordinatorDelegate?.goBookDetail(books: booksList, item: item)
