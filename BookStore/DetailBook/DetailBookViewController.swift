@@ -144,7 +144,7 @@ class DetailBookViewController: UIViewController {
     private func setupHeader() {
         view.backgroundColor = .white
         navigationItem.title = nameScreen
-        navigationItem.backBarButtonItem?.title = leftLabel
+        navigationItem.backBarButtonItem? = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(actionGoHome))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightLabel, style: .plain, target: self, action: #selector(actionGoFavorite))
     }
     
@@ -210,7 +210,7 @@ class DetailBookViewController: UIViewController {
         
         imageBookmarks.setImage(UIImage(systemName:nameIconBookmarks), for: .normal)
         imageBookmarks.backgroundColor = .white
-        imageBookmarks.tintColor = .systemGray5
+        imageBookmarks.tintColor = viewModel.booksResponses?.favorite == true ? .red : .systemGray5
         imageBookmarks.addTarget(self, action: #selector(actionFavorites), for: .touchUpInside)
 
     }
@@ -238,6 +238,10 @@ class DetailBookViewController: UIViewController {
     }
     
     @objc private func actionGoFavorite(_ sender: UIButton) {
+        viewModel.tapListFavorite()
+    }
+    
+    @objc private func actionGoHome(_ sender: UIButton) {
         viewModel.tapListFavorite()
     }
     

@@ -1,16 +1,16 @@
 //
-//  ListBooksViewController.swift
+//  FavoriteBookViewController.swift
 //  BookStore
 //
-//  Created by Arthur Borges Conforti on 12/03/23.
+//  Created by Arthur Borges Conforti on 14/03/23.
 //
 
 import Foundation
 import UIKit
 
-class ListBooksViewController: UIViewController {
+class FavoriteBooksViewController: UIViewController {
     
-    var viewModel : ListBooksViewModel!
+    var viewModel : FavoriteBooksViewModel!
     
     private lazy var titleLabel: UILabel = {
         let view = UILabel(frame: .zero)
@@ -30,7 +30,7 @@ class ListBooksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.getBooks()
+        viewModel.fetchFavoriteList()
         setupHeader()
         setupLabels()
         setupCollectionView()
@@ -38,15 +38,6 @@ class ListBooksViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(collectionView)
         setupConstraints()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        viewModel.getBooks()
     }
     
     func setupBindable() {
@@ -58,8 +49,13 @@ class ListBooksViewController: UIViewController {
     private func setupHeader() {
         view.backgroundColor = .white
         navigationItem.title = nameAPP
-        navigationItem.backBarButtonItem? = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(actionGoHome))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightLabel, style: .plain, target: self, action: #selector(actionGoFavorite))
+        let myButton = UIButton(type: .system)
+        let image = UIImage(named: imageArrows)
+        myButton.setImage(image, for: .normal)
+        myButton.setTitle(nameBackScreen, for: .normal)
+        myButton.sizeToFit()
+        myButton.addTarget(self, action: #selector(actionGoHome), for: .touchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: myButton)
     }
     
     private func setupLabels() {
@@ -85,28 +81,14 @@ class ListBooksViewController: UIViewController {
         
     }
     
-    func loadMoreData() {
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) { // Remove the 1-second delay if you want to load the data without waiting
-            self.viewModel.startIndexList = String(self.viewModel.booksList.count + numberStartIndex)
-            DispatchQueue.main.async {
-                if self.viewModel.typeList == .listBook {
-                    self.viewModel.fetchListBook()
-                }
-            }
-        }
-    }
-    
-    @objc private func actionGoFavorite(_ sender: UIButton) {
-        viewModel.tapFavorite()
-    }
-    
+
     @objc private func actionGoHome(_ sender: UIButton) {
-        viewModel.tapFavorite()
+        viewModel.tapHoHome()
     }
     
 }
 
-extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension FavoriteBooksViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/widthCellCollectionView, height: collectionView.frame.height/heightCellCollectionView)
@@ -131,13 +113,8 @@ extension ListBooksViewController: UICollectionViewDelegate, UICollectionViewDat
         let model = viewModel.booksList[indexPath.row]
         viewModel.tapBookDetail(item: model.id)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.booksList.count - lessRow {
-            loadMoreData()
-        }
-    }
 }
+
 
 
 

@@ -102,3 +102,7 @@ let paddingTrailing: CGFloat  = -10
 let paddingLeading: CGFloat  = 10
 let minScreenIpad: CGFloat = 600
 
+
+// FavoriteViewController
+let imageArrows = "arrows_back"
+let nameBackScreen = "Home"

@@ -16,6 +16,8 @@
 		DE1164A729BFDA2800CB82EF /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1164A629BFDA2800CB82EF /* UIImageView.swift */; };
 		DE1164AA29BFDC4300CB82EF /* DetailBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1164A929BFDC4300CB82EF /* DetailBookViewController.swift */; };
 		DE1164AC29BFDC5300CB82EF /* DetailBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1164AB29BFDC5300CB82EF /* DetailBookViewModel.swift */; };
+		DE1CEB7729C11B98006636BA /* FavoriteBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1CEB7629C11B98006636BA /* FavoriteBookViewController.swift */; };
+		DE1CEB7929C11BA6006636BA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1CEB7829C11BA6006636BA /* FavoriteViewModel.swift */; };
 		DEB70B4629BE976E0013D8C8 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB70B4529BE976E0013D8C8 /* MainCoordinator.swift */; };
 		DEB70B4B29BE97F70013D8C8 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB70B4A29BE97F70013D8C8 /* Bindable.swift */; };
 		DEB70B5029BE986A0013D8C8 /* ListBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB70B4F29BE986A0013D8C8 /* ListBooksViewController.swift */; };
@@ -63,6 +65,8 @@
 		DE1164A629BFDA2800CB82EF /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		DE1164A929BFDC4300CB82EF /* DetailBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBookViewController.swift; sourceTree = "<group>"; };
 		DE1164AB29BFDC5300CB82EF /* DetailBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBookViewModel.swift; sourceTree = "<group>"; };
+		DE1CEB7629C11B98006636BA /* FavoriteBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBookViewController.swift; sourceTree = "<group>"; };
+		DE1CEB7829C11BA6006636BA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		DEB70B4529BE976E0013D8C8 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		DEB70B4A29BE97F70013D8C8 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		DEB70B4F29BE986A0013D8C8 /* ListBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBooksViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +155,15 @@
 			path = DetailBook;
 			sourceTree = "<group>";
 		};
+		DE1CEB7529C11B7B006636BA /* FavoriteBooks */ = {
+			isa = PBXGroup;
+			children = (
+				DE1CEB7629C11B98006636BA /* FavoriteBookViewController.swift */,
+				DE1CEB7829C11BA6006636BA /* FavoriteViewModel.swift */,
+			);
+			path = FavoriteBooks;
+			sourceTree = "<group>";
+		};
 		DEB70B4429BE97520013D8C8 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +241,7 @@
 		DED466B329BE91D200667488 /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				DE1CEB7529C11B7B006636BA /* FavoriteBooks */,
 				DE1164A829BFDC2A00CB82EF /* DetailBook */,
 				DE11649F29BFBADF00CB82EF /* Model */,
 				DEB70B4E29BE98430013D8C8 /* ListBooks */,
@@ -503,7 +517,9 @@
 				DE1164AC29BFDC5300CB82EF /* DetailBookViewModel.swift in Sources */,
 				DEB70B4B29BE97F70013D8C8 /* Bindable.swift in Sources */,
 				DE1164A329BFBB4B00CB82EF /* ListBooksViewModel.swift in Sources */,
+				DE1CEB7929C11BA6006636BA /* FavoriteViewModel.swift in Sources */,
 				DEB70B5029BE986A0013D8C8 /* ListBooksViewController.swift in Sources */,
+				DE1CEB7729C11B98006636BA /* FavoriteBookViewController.swift in Sources */,
 				DE1164A729BFDA2800CB82EF /* UIImageView.swift in Sources */,
 				DEB70B5529BEA46D0013D8C8 /* ListBooksViewCell.swift in Sources */,
 				DE1164A529BFD54400CB82EF /* Constants&Enuns.swift in Sources */,
