@@ -59,6 +59,7 @@ class ListBooksViewModel: ListBooksViewModelProtocol {
         if !favoritesBooks.isEmpty {
             self.booksList = favoritesBooks
         }
+        self.typeList = .listBook
         self.updateListBindable()
     }
     
